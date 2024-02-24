@@ -16,17 +16,31 @@ class ToDoItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-        background: Container(color: Colors.red),
-        key: Key(item.name),
-        onDismissed: (_) {
-          onDelete(item);
-        },
-        child: CheckboxListTile(
-          value: item.done,
-          onChanged: (_) {
-            onToogle(item);
-          },
-          title: Text(item.name),
-        ));
+      background: Container(color: Colors.red),
+      key: Key(item.name),
+      onDismissed: (_) {
+        onDelete(item);
+      },
+      child: Column(
+        children: [
+          TextFormField(
+            initialValue: 'Input text',
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              prefixIcon: Checkbox(
+                  value: item.done,
+                  onChanged: (value) {
+                    onToogle(item);
+                  }),
+            ),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+          ),
+          const SizedBox(
+            height: 4.0,
+          )
+        ],
+      ),
+    );
   }
 }

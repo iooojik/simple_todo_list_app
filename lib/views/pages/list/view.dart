@@ -21,6 +21,19 @@ class ToDoListView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              TextFormField(
+                initialValue: 'Folder title',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 36,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+              ),
+              const SizedBox(height: 16.0),
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (_, int index) => ToDoItemWidget(
