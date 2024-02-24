@@ -6,4 +6,6 @@ class Strings {
   static String _strById(String strId) => Vocab.vocab[strId]![lang] ?? "";
 
   static String addTodoTooltip() => _strById("addTaskToolTip");
+
+  static String addFolder() => _strById("addFolder");
 }

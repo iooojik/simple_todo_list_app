@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
-import 'package:todo_list_app/entity/todo_item.dart';
 import 'package:todo_list_app/views/pages/folder_selector/model.dart';
 
 class FolderViewModel extends ChangeNotifier {
@@ -13,5 +12,20 @@ class FolderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchFolders() async {
+    List<FolderItem> folders = await _state.getFolders();
 
+    state = state.copyWith(items: folders);
+  }
+
+  addFolder(FolderItem item) async {
+    var list = state.items.toList();
+    if (!list.any((element) => element.name == item.name)) {
+      _state.addFolder(item);
+
+      list.add(item);
+
+      state = state.copyWith(items: list);
+    }
+  }
 }

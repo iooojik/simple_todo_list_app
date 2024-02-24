@@ -6,6 +6,10 @@ class Vocab {
     "addTaskToolTip": {
       EnLang: "Add task",
       RuLang: "Добавить задачу",
+    },
+    "addFolder": {
+      EnLang: "Add folder",
+      RuLang: "Добавить заметку",
     }
   };
 }

@@ -14,4 +14,14 @@ class Model {
       items: items ?? this.items,
     );
   }
+
+  Future<List<FolderItem>> getFolders() async {
+    // todo get from local storage
+    List<FolderItem> folders = [];
+    return folders;
+  }
+
+  addFolder(FolderItem item) async {
+    //   todo add to db
+  }
 }

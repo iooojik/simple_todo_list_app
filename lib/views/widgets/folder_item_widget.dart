@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
-import 'package:todo_list_app/entity/todo_item.dart';
 
 class FolderItemWidget extends StatelessWidget {
   final FolderItem item;
