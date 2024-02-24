@@ -8,8 +8,28 @@ import 'package:todo_list_app/views/pages/folder_selector/view.dart';
 import 'package:todo_list_app/views/pages/list/view_model.dart';
 import 'package:todo_list_app/views/widgets/todo_item_widget.dart';
 
-class ToDoListView extends StatelessWidget {
-  const ToDoListView({Key? key, int id = 0}) : super(key: key);
+class ToDoListView extends StatefulWidget {
+  const ToDoListView({Key? key}) : super(key: key);
+
+  @override
+  ToDoListViewState createState() => ToDoListViewState();
+
+  static Widget create(int pageId) => ChangeNotifierProvider(
+        create: (_) => ToDoListViewModel(),
+        child: const ToDoListView(),
+      );
+}
+
+class ToDoListViewState extends State<ToDoListView> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var viewModel = context.read<ToDoListViewModel>();
+      // viewModel.fetchFolders();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +84,12 @@ class ToDoListView extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return FolderView.create();
-              });
-          // showDialog(
-          //   context: context,
-          //   builder: (_) => AddTaskDialog(onFinish: viewModel.addItem),
-          // );
+              },
+          );
         },
         tooltip: Strings.addTodoTooltip(),
         child: const Icon(Icons.list_sharp),
       ),
     );
   }
-
-  static Widget create(int pageId) => ChangeNotifierProvider(
-        create: (_) => ToDoListViewModel(),
-        child: ToDoListView(id: pageId),
-      );
 }
