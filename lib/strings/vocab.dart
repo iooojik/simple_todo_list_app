@@ -10,6 +10,10 @@ class Vocab {
     "addFolder": {
       EnLang: "Add folder",
       RuLang: "Добавить заметку",
+    },
+    "listFolders": {
+      EnLang: "List folders",
+      RuLang: "Список заметок",
     }
   };
 }

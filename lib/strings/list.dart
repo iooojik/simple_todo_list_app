@@ -8,4 +8,6 @@ class Strings {
   static String addTodoTooltip() => _strById("addTaskToolTip");
 
   static String addFolder() => _strById("addFolder");
+
+  static String listFolders() => _strById("listFolders");
 }

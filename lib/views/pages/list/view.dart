@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_list_app/entity/todo_item.dart';
 import 'package:todo_list_app/strings/list.dart';
 import 'package:todo_list_app/views/pages/folder_selector/view.dart';
 import 'package:todo_list_app/views/pages/list/view_model.dart';
@@ -15,20 +16,42 @@ class ToDoListView extends StatelessWidget {
     var viewModel = context.watch<ToDoListViewModel>();
 
     return Scaffold(
-      body: ListView.builder(
-        itemBuilder: (_, int index) => ToDoItemWidget(
-          item: viewModel.state.items[index],
-          onDelete: viewModel.dellItem,
-          onToogle: viewModel.toogleItem,
-        ),
-        itemCount: viewModel.state.items.length,
-      ),
+      body: Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (_, int index) => ToDoItemWidget(
+                    item: viewModel.state.items[index],
+                    onDelete: viewModel.dellItem,
+                    onToogle: viewModel.toogleItem,
+                  ),
+                  itemCount: viewModel.state.items.length,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () async {
+                  await viewModel.addItem(
+                    ToDoItem(
+                      name: viewModel.state.items.length.toString(),
+                      done: false,
+                    ),
+                  );
+                },
+                child: Text(Strings.addTodoTooltip()),
+              ),
+            ],
+          )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (BuildContext context) {
+              context: context,
+              builder: (BuildContext context) {
                 return FolderView.create();
-          });
+              });
           // showDialog(
           //   context: context,
           //   builder: (_) => AddTaskDialog(onFinish: viewModel.addItem),

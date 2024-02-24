@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/entity/todo_item.dart';
 import 'package:todo_list_app/views/pages/list/model.dart';
@@ -14,12 +16,10 @@ class ToDoListViewModel extends ChangeNotifier {
 
   addItem(ToDoItem item) {
     var list = state.items.toList();
-    if (list.any((element) => element.name == item.name)) {
-      throw Error();
-    } else {
-      list.add(item);
-      state = state.copyWith(items: list);
-    }
+    // if (!list.any((element) => element.name == item.name)) {
+    list.add(item);
+    state = state.copyWith(items: list);
+    // }
   }
 
   dellItem(ToDoItem item) {

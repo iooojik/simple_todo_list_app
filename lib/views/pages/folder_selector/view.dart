@@ -36,7 +36,7 @@ class FolderViewState extends State<FolderView> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+        children: [
           Expanded(
             child: ListView.builder(
               itemBuilder: (_, int index) => FolderItemWidget(
