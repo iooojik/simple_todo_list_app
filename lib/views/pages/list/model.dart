@@ -5,15 +5,19 @@ import '../../../db/client.dart';
 
 class Model {
   final List<ToDoItem> items;
+  final FolderItem folder;
 
-  Model({
+  Model(
+    this.folder, {
     this.items = const <ToDoItem>[],
   });
 
   Model copyWith({
     List<ToDoItem>? items,
+    required FolderItem folderItem,
   }) {
     return Model(
+      folderItem,
       items: items ?? this.items,
     );
   }
