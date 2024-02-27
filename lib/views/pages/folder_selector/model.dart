@@ -23,8 +23,6 @@ class Model {
 
     final List<Map<String, Object?>> folderMaps = await db.query('folders');
 
-    log(folderMaps.toString());
-
     List<FolderItem> folders = [
       for (final {
             'id': id as int,

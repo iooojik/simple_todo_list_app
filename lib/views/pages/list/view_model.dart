@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:todo_list_app/entity/folder_item.dart';
 import 'package:todo_list_app/entity/todo_item.dart';
 import 'package:todo_list_app/views/pages/list/model.dart';
 
@@ -17,14 +18,14 @@ class ToDoListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String folderName() {
+  Future<String> folderName() async {
     if (folderId < 0) {
       return 'Folder title';
     }
 
+    FolderItem item = await _state.getFolder(folderId);
 
-
-    return '';
+    return item.name;
   }
 
   addItem(ToDoItem item) {

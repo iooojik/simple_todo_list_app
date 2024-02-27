@@ -14,7 +14,8 @@ class ToDoListView extends StatefulWidget {
   @override
   ToDoListViewState createState() => ToDoListViewState();
 
-  static Widget create(int pageId) => ChangeNotifierProvider(
+  static Widget create(int pageId) =>
+      ChangeNotifierProvider(
         create: (_) => ToDoListViewModel(pageId),
         child: const ToDoListView(),
       );
@@ -24,6 +25,30 @@ class ToDoListViewState extends State<ToDoListView> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Widget titleLoader(BuildContext context, AsyncSnapshot<String> snapshot) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.waiting:
+        return const Text('');
+      default:
+        if (snapshot.hasError) {
+          throw Exception(snapshot.error);
+        } else {
+          return TextFormField(
+            initialValue: snapshot.data ?? '',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 36,
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+          );
+        }
+    }
   }
 
   @override
@@ -36,26 +61,19 @@ class ToDoListViewState extends State<ToDoListView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(
-                initialValue: viewModel.folderName(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 36,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                ),
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
+              FutureBuilder(
+                future: viewModel.folderName(),
+                builder: titleLoader,
               ),
               const SizedBox(height: 16.0),
               Expanded(
                 child: ListView.builder(
-                  itemBuilder: (_, int index) => ToDoItemWidget(
-                    item: viewModel.state.items[index],
-                    onDelete: viewModel.dellItem,
-                    onToogle: viewModel.toogleItem,
-                  ),
+                  itemBuilder: (_, int index) =>
+                      ToDoItemWidget(
+                        item: viewModel.state.items[index],
+                        onDelete: viewModel.dellItem,
+                        onToogle: viewModel.toogleItem,
+                      ),
                   itemCount: viewModel.state.items.length,
                 ),
               ),
