@@ -15,7 +15,7 @@ class ToDoListView extends StatefulWidget {
   ToDoListViewState createState() => ToDoListViewState();
 
   static Widget create(int pageId) => ChangeNotifierProvider(
-        create: (_) => ToDoListViewModel(),
+        create: (_) => ToDoListViewModel(pageId),
         child: const ToDoListView(),
       );
 }
@@ -24,11 +24,6 @@ class ToDoListViewState extends State<ToDoListView> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var viewModel = context.read<ToDoListViewModel>();
-      // viewModel.fetchFolders();
-    });
   }
 
   @override
@@ -42,7 +37,7 @@ class ToDoListViewState extends State<ToDoListView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                initialValue: 'Folder title',
+                initialValue: viewModel.folderName(),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 36,
@@ -81,10 +76,10 @@ class ToDoListViewState extends State<ToDoListView> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                return FolderView.create();
-              },
+            context: context,
+            builder: (BuildContext context) {
+              return FolderView.create();
+            },
           );
         },
         tooltip: Strings.addTodoTooltip(),

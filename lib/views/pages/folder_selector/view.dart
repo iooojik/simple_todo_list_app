@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
 import 'package:todo_list_app/strings/list.dart';
 import 'package:todo_list_app/views/pages/folder_selector/view_model.dart';
+import 'package:todo_list_app/views/pages/list/view.dart';
 import 'package:todo_list_app/views/widgets/folder_item_widget.dart';
 
 class FolderView extends StatefulWidget {
@@ -41,6 +42,15 @@ class FolderViewState extends State<FolderView> {
             child: ListView.builder(
               itemBuilder: (_, int index) => FolderItemWidget(
                 item: viewModel.state.items[index],
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ToDoListView.create(
+                              viewModel.state.items[index].id,
+                            )),
+                  );
+                },
               ),
               itemCount: viewModel.state.items.length,
             ),
@@ -48,9 +58,8 @@ class FolderViewState extends State<FolderView> {
           const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () async {
-              await viewModel.addFolder(
-                FolderItem(viewModel.state.items.length.toString()),
-              );
+              await viewModel
+                  .addFolder(viewModel.state.items.length.toString());
             },
             child: Text(Strings.addFolder()),
           ),

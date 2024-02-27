@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:todo_list_app/db/client.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
 
 class Model {
@@ -16,8 +19,20 @@ class Model {
   }
 
   Future<List<FolderItem>> getFolders() async {
-    // todo get from local storage
-    List<FolderItem> folders = [];
+    final db = await DbClient.db;
+
+    final List<Map<String, Object?>> folderMaps = await db.query('folders');
+
+    log(folderMaps.toString());
+
+    List<FolderItem> folders = [
+      for (final {
+            'id': id as int,
+            'name': name as String,
+          } in folderMaps)
+        FolderItem(id, name),
+    ];
+
     return folders;
   }
 
