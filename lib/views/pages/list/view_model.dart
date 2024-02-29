@@ -18,15 +18,20 @@ class ToDoListViewModel extends ChangeNotifier {
   }
 
   Future<void> initFolder(int folderId) async {
-    // if (folder.id < 0) {
-    //   folder.name = 'Folder title';
-    //   notifyListeners();
-    //   return;
-    // }
-    //
     FolderItem item = await _state.getFolder(folderId);
     state = state.copyWith(folderItem: item, items: state.items);
+    return;
+  }
 
+  Future<void> saveFolder(FolderItem item) async {
+    FolderItem folderItem = _state.folder;
+
+    folderItem.name = item.name;
+
+    await _state.saveFolder(folderItem);
+
+    // escaping notifyListeners in setter
+    _state = _state.copyWith(folderItem: folderItem, items: state.items);
     return;
   }
 

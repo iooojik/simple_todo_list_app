@@ -13,7 +13,7 @@ class MainViewModel extends ChangeNotifier {
   }
 
   Future<Widget> getPage() async {
-    return ToDoListView.create(0);
+    return ToDoListView.create(1);
   }
 
 // addItem(ToDoItem item) {

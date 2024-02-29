@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
 import 'package:todo_list_app/entity/todo_item.dart';
 
@@ -20,6 +21,18 @@ class Model {
       folderItem,
       items: items ?? this.items,
     );
+  }
+
+  Future<void> saveFolder(FolderItem item) async {
+    final db = await DbClient.db;
+
+    await db.insert(
+      'folders',
+      item.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    return;
   }
 
   Future<FolderItem> getFolder(int folderId) async {

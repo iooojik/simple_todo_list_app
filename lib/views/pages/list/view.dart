@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/entity/folder_item.dart';
 import 'package:todo_list_app/entity/todo_item.dart';
 import 'package:todo_list_app/strings/list.dart';
 import 'package:todo_list_app/views/pages/folder_selector/view.dart';
@@ -26,19 +23,30 @@ class ToDoListView extends StatefulWidget {
 }
 
 class ToDoListViewState extends State<ToDoListView> {
+  final TextEditingController titleTextController = TextEditingController();
+  late ToDoListViewModel viewModel;
+
   @override
   void initState() {
     super.initState();
+    titleTextController.addListener(_saveTitle);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      var viewModel = context.read<ToDoListViewModel>();
       viewModel.initFolder(widget.folderId);
     });
   }
 
+  void _saveTitle() {
+    final text = titleTextController.text;
+    viewModel.state.folder.name = text;
+    viewModel.saveFolder(viewModel.state.folder);
+  }
+
   @override
   Widget build(BuildContext context) {
-    var viewModel = context.watch<ToDoListViewModel>();
+    viewModel = context.watch<ToDoListViewModel>();
+
+    titleTextController.text = viewModel.state.folder.name;
 
     return Scaffold(
       body: Container(
@@ -46,9 +54,8 @@ class ToDoListViewState extends State<ToDoListView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(viewModel.state.folder.name),
               TextFormField(
-                initialValue: viewModel.state.folder.name,
+                controller: titleTextController,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 36,
@@ -56,8 +63,9 @@ class ToDoListViewState extends State<ToDoListView> {
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                 ),
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+                maxLength: 48,
               ),
               const SizedBox(height: 16.0),
               Expanded(
