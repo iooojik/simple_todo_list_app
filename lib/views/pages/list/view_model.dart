@@ -19,7 +19,8 @@ class ToDoListViewModel extends ChangeNotifier {
 
   Future<void> initFolder(int folderId) async {
     FolderItem item = await _state.getFolder(folderId);
-    state = state.copyWith(folderItem: item, items: state.items);
+    List<ToDoItem> todos = await _state.getTodos(item.id);
+    state = state.copyWith(folderItem: item, items: todos);
     return;
   }
 
@@ -28,15 +29,16 @@ class ToDoListViewModel extends ChangeNotifier {
 
     folderItem.name = item.name;
 
-    await _state.saveFolder(folderItem);
+    await state.saveFolder(folderItem);
 
     // escaping notifyListeners in setter
     _state = _state.copyWith(folderItem: folderItem, items: state.items);
     return;
   }
 
-  addItem(ToDoItem item) {
+  addItem(ToDoItem item) async {
     var list = state.items.toList();
+    await state.addTodoItem(item);
 
     list.add(item);
     state = state.copyWith(folderItem: state.folder, items: list);
@@ -45,15 +47,15 @@ class ToDoListViewModel extends ChangeNotifier {
   dellItem(ToDoItem item) {
     var list = state.items.toList();
 
-    list.removeWhere((element) => element.name == item.name);
+    list.removeWhere((element) => element.text == item.text);
     state = state.copyWith(folderItem: state.folder, items: list);
   }
 
-  toogleItem(ToDoItem item) {
+  toggleItem(ToDoItem item) async {
     var list = state.items.toList();
-    var index = list.indexWhere((element) => element.name == item.name);
 
-    list[index] = item.copyWith(done: !item.done);
-    state = state.copyWith(folderItem: state.folder, items: list);
+    await state.updTodoItem(item);
+
+    _state = _state.copyWith(folderItem: state.folder, items: list);
   }
 }

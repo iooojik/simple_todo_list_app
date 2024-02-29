@@ -11,12 +11,23 @@ class DbClient {
     return openDatabase(
       join(await getDatabasesPath(), 'todo_data.db'),
       onCreate: (db, version) {
-        return db.execute(
+        db.execute(
           createFoldersTable,
+        );
+        db.execute(
+          createTodoItemsTable,
+        );
+      },
+      onUpgrade: (db, version, oldVersion) {
+        db.execute(
+          createFoldersTable,
+        );
+        db.execute(
+          createTodoItemsTable,
         );
       },
       // upgrades and downgrades.
-      version: 2,
+      version: 3,
     );
   }
 }

@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
+import 'package:todo_list_app/db/client.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
 import 'package:todo_list_app/entity/todo_item.dart';
-
-import '../../../db/client.dart';
 
 class Model {
   final List<ToDoItem> items;
@@ -21,6 +22,59 @@ class Model {
       folderItem,
       items: items ?? this.items,
     );
+  }
+
+  Future<void> updTodoItem(ToDoItem item) async {
+    final db = await DbClient.db;
+    item.folderId = folder.id;
+
+    await db.update(
+      'todo_items',
+      item.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+      where: 'id = ?',
+      whereArgs: [item.id],
+    );
+
+    return;
+  }
+
+  Future<void> addTodoItem(ToDoItem item) async {
+    final db = await DbClient.db;
+    item.folderId = folder.id;
+
+    item.id = await db.insert(
+      'todo_items',
+      item.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    return;
+  }
+
+  Future<List<ToDoItem>> getTodos(int folderId) async {
+    final db = await DbClient.db;
+
+    final List<Map<String, Object?>> folderMaps = await db.query(
+      'todo_items',
+      where: 'folderId = ?',
+      whereArgs: [folderId],
+    );
+
+    List<ToDoItem> items = [
+      for (final {
+            'id': id as int,
+            'text': text as String,
+            'done': done as int,
+          } in folderMaps)
+        ToDoItem(text: text, done: done == 1, id: id),
+    ];
+
+    if (items.isEmpty) {
+      return [];
+    }
+
+    return items;
   }
 
   Future<void> saveFolder(FolderItem item) async {

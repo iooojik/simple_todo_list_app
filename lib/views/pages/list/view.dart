@@ -73,7 +73,7 @@ class ToDoListViewState extends State<ToDoListView> {
                   itemBuilder: (_, int index) => ToDoItemWidget(
                     item: viewModel.state.items[index],
                     onDelete: viewModel.dellItem,
-                    onToogle: viewModel.toogleItem,
+                    onToggle: viewModel.toggleItem,
                   ),
                   itemCount: viewModel.state.items.length,
                 ),
@@ -83,7 +83,7 @@ class ToDoListViewState extends State<ToDoListView> {
                 onPressed: () async {
                   await viewModel.addItem(
                     ToDoItem(
-                      name: viewModel.state.items.length.toString(),
+                      text: "ToDo",
                       done: false,
                     ),
                   );

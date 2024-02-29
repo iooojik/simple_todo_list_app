@@ -26,7 +26,7 @@ class AddTaskDialog extends StatelessWidget {
           onPressed: () {
             if (text != null) {
               try {
-                onFinish(ToDoItem(name: text!));
+                onFinish(ToDoItem(text: text!));
                 Navigator.of(context).pop();
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
