@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_list_app/db/client.dart';
 import 'package:todo_list_app/entity/folder_item.dart';

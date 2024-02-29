@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/entity/folder_item.dart';
 import 'package:todo_list_app/strings/list.dart';
 import 'package:todo_list_app/views/pages/folder_selector/view_model.dart';
 import 'package:todo_list_app/views/pages/list/view.dart';
