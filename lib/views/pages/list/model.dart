@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_list_app/db/client.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
@@ -96,6 +98,7 @@ class Model {
 
   Future<void> saveFolder(FolderItem item) async {
     final db = await DbClient.db;
+    item.id = folder.id;
 
     await db.insert(
       'folders',
