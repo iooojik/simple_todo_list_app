@@ -16,10 +16,17 @@ class Model {
     List<ToDoItem>? items,
     required FolderItem folderItem,
   }) {
-    return Model(
+    Model m = Model(
       folderItem,
       items: items ?? this.items,
     );
+    m.items.sort((a, b) {
+      if (a.done) {
+        return 1;
+      }
+      return -1;
+    });
+    return m;
   }
 
   Future<void> delTodoItem(ToDoItem item) async {
