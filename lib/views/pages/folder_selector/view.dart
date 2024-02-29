@@ -45,9 +45,10 @@ class FolderViewState extends State<FolderView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ToDoListView.create(
-                              viewModel.state.items[index].id,
-                            )),
+                      builder: (context) => ToDoListView.create(
+                        viewModel.state.items[index].id,
+                      ),
+                    ),
                   );
                 },
               ),
@@ -57,8 +58,7 @@ class FolderViewState extends State<FolderView> {
           const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () async {
-              await viewModel
-                  .addFolder(viewModel.state.items.length.toString());
+              await viewModel.addFolder("Folder");
             },
             child: Text(Strings.addFolder()),
           ),

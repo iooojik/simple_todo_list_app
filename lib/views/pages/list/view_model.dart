@@ -42,11 +42,20 @@ class ToDoListViewModel extends ChangeNotifier {
     state = state.copyWith(folderItem: state.folder, items: list);
   }
 
-  dellItem(ToDoItem item) {
+  dellItem(ToDoItem item) async {
     var list = state.items.toList();
 
-    list.removeWhere((element) => element.text == item.text);
+    list.removeWhere((element) => element.id == item.id);
+    await state.delTodoItem(item);
     state = state.copyWith(folderItem: state.folder, items: list);
+  }
+
+  updateItem(ToDoItem item) async {
+    var list = state.items.toList();
+
+    await state.updTodoItem(item);
+
+    _state = _state.copyWith(folderItem: state.folder, items: list);
   }
 
   toggleItem(ToDoItem item) async {
@@ -54,6 +63,6 @@ class ToDoListViewModel extends ChangeNotifier {
 
     await state.updTodoItem(item);
 
-    _state = _state.copyWith(folderItem: state.folder, items: list);
+    state = state.copyWith(folderItem: state.folder, items: list);
   }
 }

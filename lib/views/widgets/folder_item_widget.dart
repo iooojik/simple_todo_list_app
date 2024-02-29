@@ -18,14 +18,17 @@ class FolderItemWidget extends StatelessWidget {
         key: Key(item.name),
         child: SizedBox(
           width: double.infinity,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              textStyle: const TextStyle(
-                fontSize: 20,
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(
+                  fontSize: 20,
+                ),
               ),
+              onPressed: onPressed,
+              child: Text(item.name),
             ),
-            onPressed: onPressed,
-            child: Text(item.name),
           ),
         ));
   }

@@ -74,6 +74,7 @@ class ToDoListViewState extends State<ToDoListView> {
                     item: viewModel.state.items[index],
                     onDelete: viewModel.dellItem,
                     onToggle: viewModel.toggleItem,
+                    onUpdate: viewModel.updateItem,
                   ),
                   itemCount: viewModel.state.items.length,
                 ),

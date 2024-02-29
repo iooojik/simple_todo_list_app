@@ -19,13 +19,14 @@ class FolderViewModel extends ChangeNotifier {
   }
 
   addFolder(String name) async {
-    // var list = state.items.toList();
-    // if (!list.any((element) => element.name == item.name)) {
-    //   _state.addFolder(item);
-    //
-    //   list.add(item);
-    //
-    //   state = state.copyWith(items: list);
-    // }
+    FolderItem item = FolderItem(-1, name);
+
+    var list = state.items.toList();
+
+    await state.addFolder(item);
+
+    list.add(item);
+
+    state = state.copyWith(items: list);
   }
 }

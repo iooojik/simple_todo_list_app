@@ -22,6 +22,18 @@ class Model {
     );
   }
 
+  Future<void> delTodoItem(ToDoItem item) async {
+    final db = await DbClient.db;
+
+    await db.delete(
+      'todo_items',
+      where: 'id = ?',
+      whereArgs: [item.id],
+    );
+
+    return;
+  }
+
   Future<void> updTodoItem(ToDoItem item) async {
     final db = await DbClient.db;
     item.folderId = folder.id;

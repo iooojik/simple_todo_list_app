@@ -9,10 +9,13 @@ class FolderItem {
   );
 
   Map<String, Object?> toMap() {
-    return {
-      'id': id,
+    Map<String, Object?> data = {
       'name': name,
       'seqUpdate': DateTime.now().microsecondsSinceEpoch,
     };
+    if (id > 0) {
+      data['id'] = id;
+    }
+    return data;
   }
 }

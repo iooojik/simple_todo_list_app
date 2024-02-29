@@ -4,7 +4,7 @@ class ToDoItem {
   int folderId = 0;
 
   String text;
-  final bool done;
+  bool done;
 
   ToDoItem({
     required this.text,

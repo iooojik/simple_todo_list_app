@@ -6,12 +6,14 @@ class ToDoItemWidget extends StatefulWidget {
       {Key? key,
       required this.item,
       required this.onDelete,
+      required this.onUpdate,
       required this.onToggle})
       : super(key: key);
 
   final ToDoItem item;
   final Function(ToDoItem) onDelete;
   final Function(ToDoItem) onToggle;
+  final Function(ToDoItem) onUpdate;
 
   @override
   ToDoItemWidgetState createState() => ToDoItemWidgetState();
@@ -30,7 +32,7 @@ class ToDoItemWidgetState extends State<ToDoItemWidget> {
     final text = textController.text;
     if (text != widget.item.text) {
       widget.item.text = text;
-      widget.onToggle(widget.item);
+      widget.onUpdate(widget.item);
     }
   }
 
@@ -53,6 +55,8 @@ class ToDoItemWidgetState extends State<ToDoItemWidget> {
               prefixIcon: Checkbox(
                   value: widget.item.done,
                   onChanged: (value) {
+                    value ??= false;
+                    widget.item.done = value;
                     widget.onToggle(widget.item);
                   }),
             ),
