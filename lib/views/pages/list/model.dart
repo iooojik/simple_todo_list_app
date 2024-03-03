@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_list_app/db/client.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
@@ -111,12 +109,17 @@ class Model {
 
   Future<FolderItem> getFolder(int folderId) async {
     final db = await DbClient.db;
+    final List<Map<String, Object?>> folderMaps;
 
-    final List<Map<String, Object?>> folderMaps = await db.query(
-      'folders',
-      where: 'id = ?',
-      whereArgs: [folderId],
-    );
+    if (folderId <= 0) {
+      folderMaps = await db.query('folders', limit: 1);
+    } else {
+      folderMaps = await db.query(
+        'folders',
+        where: 'id = ?',
+        whereArgs: [folderId],
+      );
+    }
 
     List<FolderItem> folders = [
       for (final {

@@ -9,12 +9,10 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     var viewModel = context.watch<MainViewModel>();
 
-    return Scaffold(
-        appBar: AppBar(),
-        body: FutureBuilder<Widget>(
-          future: viewModel.getPage(),
-          builder: windowLoader,
-        ));
+    return FutureBuilder<Widget>(
+      future: viewModel.getPage(),
+      builder: windowLoader,
+    );
   }
 
   Widget windowLoader(BuildContext context, AsyncSnapshot<Widget> snapshot) {

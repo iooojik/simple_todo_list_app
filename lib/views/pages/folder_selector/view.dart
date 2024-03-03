@@ -42,15 +42,17 @@ class FolderViewState extends State<FolderView> {
               itemBuilder: (_, int index) => FolderItemWidget(
                 item: viewModel.state.items[index],
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ToDoListView.create(
                         viewModel.state.items[index].id,
                       ),
                     ),
+                    (Route<dynamic> route) => false,
                   );
                 },
+                onDelete: viewModel.deleteFolder,
               ),
               itemCount: viewModel.state.items.length,
             ),

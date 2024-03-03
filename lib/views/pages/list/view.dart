@@ -42,57 +42,72 @@ class ToDoListViewState extends State<ToDoListView> {
     viewModel.saveFolder(viewModel.state.folder);
   }
 
+  Widget _buildTodoItem(ToDoItem item, Animation<double> animation) {
+    return SizeTransition(
+      sizeFactor: animation,
+      child: ToDoItemWidget(
+        item: item,
+        onDelete: viewModel.dellItem,
+        onToggle: viewModel.toggleItem,
+        onUpdate: viewModel.updateItem,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     viewModel = context.watch<ToDoListViewModel>();
+    final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
     titleTextController.text = viewModel.state.folder.name;
 
     return Scaffold(
-      body: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: titleTextController,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 36,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                ),
-                keyboardType: TextInputType.text,
-                maxLines: 1,
-                maxLength: 48,
-              ),
-              const SizedBox(height: 16.0),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (_, int index) => ToDoItemWidget(
-                    item: viewModel.state.items[index],
-                    onDelete: viewModel.dellItem,
-                    onToggle: viewModel.toggleItem,
-                    onUpdate: viewModel.updateItem,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 24, 8, 8),
+        child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: titleTextController,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 36,
                   ),
-                  itemCount: viewModel.state.items.length,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
+                  maxLength: 48,
                 ),
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () async {
-                  await viewModel.addItem(
-                    ToDoItem(
-                      text: "ToDo",
-                      done: false,
-                    ),
-                  );
-                },
-                child: Text(Strings.addTodoTooltip()),
-              ),
-            ],
-          )),
+                const SizedBox(height: 4.0),
+                Expanded(
+                  child: AnimatedList(
+                    key: listKey,
+                    initialItemCount: viewModel.state.items.length,
+                    itemBuilder: (context, index, animation) {
+                      return _buildTodoItem(viewModel.state.items[index], animation);
+                    },
+                    // itemCount: viewModel.state.items.length,
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    await viewModel.addItem(
+                      ToDoItem(
+                        text: "ToDo",
+                        done: false,
+                      ),
+                    );
+                  },
+                  child: Text(Strings.addTodoTooltip()),
+                ),
+              ],
+            )),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(

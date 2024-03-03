@@ -3,6 +3,7 @@ import 'package:todo_list_app/entity/folder_item.dart';
 import 'package:todo_list_app/views/pages/folder_selector/model.dart';
 
 class FolderViewModel extends ChangeNotifier {
+
   var _state = Model();
 
   Model get state => _state;
@@ -26,6 +27,16 @@ class FolderViewModel extends ChangeNotifier {
     await state.addFolder(item);
 
     list.add(item);
+
+    state = state.copyWith(items: list);
+  }
+
+  deleteFolder(int id) async {
+    var list = state.items.toList();
+
+    list.removeWhere((element) => element.id == id);
+
+    await state.deleteFolder(id);
 
     state = state.copyWith(items: list);
   }

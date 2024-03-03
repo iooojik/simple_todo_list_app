@@ -44,4 +44,17 @@ class Model {
 
     return;
   }
+
+
+  Future<void> deleteFolder(int id) async {
+    final db = await DbClient.db;
+
+    await db.delete(
+      'folders',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    return;
+  }
 }

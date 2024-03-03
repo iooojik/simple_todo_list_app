@@ -46,26 +46,38 @@ class ToDoItemWidgetState extends State<ToDoItemWidget> {
       onDismissed: (_) {
         widget.onDelete(widget.item);
       },
-      child: Column(
+      child: Row(
         children: [
-          TextFormField(
-            controller: textController,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              prefixIcon: Checkbox(
-                  value: widget.item.done,
-                  onChanged: (value) {
-                    value ??= false;
-                    widget.item.done = value;
-                    widget.onToggle(widget.item);
-                  }),
+          Expanded(
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: textController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Checkbox(
+                        value: widget.item.done,
+                        onChanged: (value) {
+                          value ??= false;
+                          widget.item.done = value;
+                          widget.onToggle(widget.item);
+                        }),
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                const SizedBox(
+                  height: 4.0,
+                )
+              ],
             ),
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
           ),
-          const SizedBox(
-            height: 4.0,
-          )
+          IconButton(
+            icon: const Icon(Icons.delete, color: Colors.red),
+            onPressed: () {
+              widget.onDelete(widget.item);
+            },
+          ),
         ],
       ),
     );

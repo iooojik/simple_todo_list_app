@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/entity/folder_item.dart';
 
-class FolderItemWidget extends StatelessWidget {
-  final FolderItem item;
-  final VoidCallback? onPressed;
-
+class FolderItemWidget extends StatefulWidget {
   const FolderItemWidget({
     Key? key,
     required this.item,
     required this.onPressed,
+    required this.onDelete,
   }) : super(key: key);
+
+  final FolderItem item;
+  final VoidCallback? onPressed;
+  final Function(int) onDelete;
+
+  @override
+  FolderItemWidgetState createState() => FolderItemWidgetState();
+}
+
+class FolderItemWidgetState extends State<FolderItemWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
         background: Container(color: Colors.red),
-        key: Key(item.name),
+        key: Key(widget.item.name),
+        onDismissed: (_) {
+          widget.onDelete(widget.item.id);
+        },
         child: SizedBox(
           width: double.infinity,
           child: Padding(
@@ -26,8 +41,8 @@ class FolderItemWidget extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              onPressed: onPressed,
-              child: Text(item.name),
+              onPressed: widget.onPressed,
+              child: Text(widget.item.name),
             ),
           ),
         ));
