@@ -1,6 +1,6 @@
+import 'package:next_step_app/db/client.dart';
+import 'package:next_step_app/entity/folder_item.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_list_app/db/client.dart';
-import 'package:todo_list_app/entity/folder_item.dart';
 
 class Model {
   final List<FolderItem> items;
@@ -44,7 +44,6 @@ class Model {
 
     return;
   }
-
 
   Future<void> deleteFolder(int id) async {
     final db = await DbClient.db;

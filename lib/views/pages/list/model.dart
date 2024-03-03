@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_list_app/db/client.dart';
-import 'package:todo_list_app/entity/folder_item.dart';
-import 'package:todo_list_app/entity/todo_item.dart';
+import 'package:next_step_app/db/client.dart';
+import 'package:next_step_app/entity/folder_item.dart';
+import 'package:next_step_app/entity/todo_item.dart';
 
 class Model {
   final List<ToDoItem> items;

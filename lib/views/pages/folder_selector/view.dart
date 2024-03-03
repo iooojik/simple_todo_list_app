@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:next_step_app/strings/list.dart';
+import 'package:next_step_app/views/pages/folder_selector/view_model.dart';
+import 'package:next_step_app/views/pages/list/view.dart';
+import 'package:next_step_app/views/widgets/folder_item_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/strings/list.dart';
-import 'package:todo_list_app/views/pages/folder_selector/view_model.dart';
-import 'package:todo_list_app/views/pages/list/view.dart';
-import 'package:todo_list_app/views/widgets/folder_item_widget.dart';
 
 class FolderView extends StatefulWidget {
   const FolderView({Key? key}) : super(key: key);

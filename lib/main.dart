@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/views/pages/main/view.dart';
+import 'package:next_step_app/views/pages/main/view.dart';
 
 void main() {
   runApp(const MyApp());

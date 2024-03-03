@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:next_step_app/views/pages/main/view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/views/pages/main/view_model.dart';
 
 class MainView extends StatelessWidget {
   const MainView({Key? key}) : super(key: key);

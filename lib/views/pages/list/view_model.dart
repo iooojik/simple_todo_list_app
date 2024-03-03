@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/entity/folder_item.dart';
-import 'package:todo_list_app/entity/todo_item.dart';
-import 'package:todo_list_app/views/pages/list/model.dart';
+import 'package:next_step_app/entity/folder_item.dart';
+import 'package:next_step_app/entity/todo_item.dart';
+import 'package:next_step_app/views/pages/list/model.dart';
 
 class ToDoListViewModel extends ChangeNotifier {
   ToDoListViewModel();

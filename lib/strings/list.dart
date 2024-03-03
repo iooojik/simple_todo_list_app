@@ -1,4 +1,4 @@
-import 'package:todo_list_app/strings/vocab.dart';
+import 'package:next_step_app/strings/vocab.dart';
 
 class Strings {
   static String lang = "en";

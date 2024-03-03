@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/entity/folder_item.dart';
+import 'package:next_step_app/entity/folder_item.dart';
 
 class FolderItemWidget extends StatefulWidget {
   const FolderItemWidget({

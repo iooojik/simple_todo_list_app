@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:next_step_app/db/queries.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_list_app/db/queries.dart';
 
 class DbClient {
   static Future<Database> db = initDb();

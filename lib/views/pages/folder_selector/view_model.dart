@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/entity/folder_item.dart';
-import 'package:todo_list_app/views/pages/folder_selector/model.dart';
+import 'package:next_step_app/entity/folder_item.dart';
+import 'package:next_step_app/views/pages/folder_selector/model.dart';
 
 class FolderViewModel extends ChangeNotifier {
-
   var _state = Model();
 
   Model get state => _state;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:next_step_app/entity/todo_item.dart';
+import 'package:next_step_app/strings/list.dart';
+import 'package:next_step_app/views/pages/folder_selector/view.dart';
+import 'package:next_step_app/views/pages/list/view_model.dart';
+import 'package:next_step_app/views/widgets/todo_item_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list_app/entity/todo_item.dart';
-import 'package:todo_list_app/strings/list.dart';
-import 'package:todo_list_app/views/pages/folder_selector/view.dart';
-import 'package:todo_list_app/views/pages/list/view_model.dart';
-import 'package:todo_list_app/views/widgets/todo_item_widget.dart';
 
 class ToDoListView extends StatefulWidget {
   const ToDoListView({Key? key, required this.folderId}) : super(key: key);

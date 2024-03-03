@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/views/pages/list/view.dart';
-import 'package:todo_list_app/views/pages/main/model.dart';
+import 'package:next_step_app/views/pages/list/view.dart';
+import 'package:next_step_app/views/pages/main/model.dart';
 
 class MainViewModel extends ChangeNotifier {
   var _state = Model();
