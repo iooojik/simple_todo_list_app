@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:next_step_app/entity/todo_item.dart';
 
 class ToDoItemWidget extends StatefulWidget {
-  const ToDoItemWidget({Key? key,
-    required this.item,
-    required this.onDelete,
-    required this.onUpdate,
-    required this.onToggle})
+  const ToDoItemWidget(
+      {Key? key,
+      required this.item,
+      required this.onDelete,
+      required this.onUpdate,
+      required this.onToggle})
       : super(key: key);
 
   final ToDoItem item;
