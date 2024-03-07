@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:next_step_app/entity/todo_item.dart';
 
 class ToDoItemWidget extends StatefulWidget {
-  const ToDoItemWidget(
-      {Key? key, required this.item, required this.onDelete, required this.onUpdate, required this.onToggle})
+  const ToDoItemWidget({Key? key,
+    required this.item,
+    required this.onDelete,
+    required this.onUpdate,
+    required this.onToggle})
       : super(key: key);
 
   final ToDoItem item;
@@ -68,12 +71,15 @@ class ToDoItemWidgetState extends State<ToDoItemWidget> {
               ],
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: () {
-              widget.onDelete(widget.item);
-            },
+          const Icon(
+            Icons.format_line_spacing_rounded,
           ),
+          // IconButton(
+          //   icon: const Icon(Icons.delete, color: Colors.red),
+          // onPressed: () {
+          //   widget.onDelete(widget.item);
+          // },
+          // ),
         ],
       ),
     );

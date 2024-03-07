@@ -65,4 +65,16 @@ class ToDoListViewModel extends ChangeNotifier {
 
     state = state.copyWith(folderItem: state.folder, items: list);
   }
+
+  void onReorder(int oldIndex, int newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    var list = state.items.toList();
+
+    final ToDoItem item = list.removeAt(oldIndex);
+    list.insert(newIndex, item);
+
+    state = state.copyWith(folderItem: state.folder, items: list);
+  }
 }

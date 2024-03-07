@@ -42,10 +42,10 @@ class ToDoListViewState extends State<ToDoListView> {
     viewModel.saveFolder(viewModel.state.folder);
   }
 
-  Widget _buildTodoItem(ToDoItem item, Animation<double> animation) {
-    return SizeTransition(
-      sizeFactor: animation,
-      child: ToDoItemWidget(
+  Widget _buildTodoItem(ToDoItem item) {
+    return ListTile(
+      key: ValueKey(item),
+      title: ToDoItemWidget(
         item: item,
         onDelete: viewModel.dellItem,
         onToggle: viewModel.toggleItem,
@@ -63,7 +63,7 @@ class ToDoListViewState extends State<ToDoListView> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 24, 8, 8),
+        padding: const EdgeInsets.fromLTRB(8, 48, 8, 8),
         child: Container(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -84,13 +84,12 @@ class ToDoListViewState extends State<ToDoListView> {
                 ),
                 const SizedBox(height: 4.0),
                 Expanded(
-                  child: AnimatedList(
+                  child: ReorderableListView(
                     key: listKey,
-                    initialItemCount: viewModel.state.items.length,
-                    itemBuilder: (context, index, animation) {
-                      return _buildTodoItem(viewModel.state.items[index], animation);
-                    },
-                    // itemCount: viewModel.state.items.length,
+                    onReorder: viewModel.onReorder,
+                    children: viewModel.state.items
+                        .map((ToDoItem item) => _buildTodoItem(item))
+                        .toList(),
                   ),
                 ),
                 const SizedBox(height: 16.0),
